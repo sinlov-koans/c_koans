@@ -106,7 +106,7 @@ Test(about_preprocessor, stringizing)
         To complete this test, replace put the correct argument into STRINGIZE
         such that it will match the string literal.
     */
-    cr_assert_eq("my string", STRINGIZE(TODO), "Stringizing not completed.");
+    cr_assert_eq("my string", STRINGIZE("my string"), "Stringizing not completed.");
 }
 
 #define ALWAYS_FALSE false
