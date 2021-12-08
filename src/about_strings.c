@@ -125,7 +125,7 @@ Test(about_strings, copy)
     strcpy(string3, string1); /* copy all characters */
 
     /* Replace with cr_assert_str_eq */
-    cr_assert_eq("CSE 101", string2, "Only copied pointer, did not copy the \
+    cr_expect_str_eq("CSE 101", string2, "Only copied pointer, did not copy the \
         string");
 }
 

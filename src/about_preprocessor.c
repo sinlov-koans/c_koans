@@ -106,7 +106,7 @@ Test(about_preprocessor, stringizing)
         To complete this test, replace put the correct argument into STRINGIZE
         such that it will match the string literal.
     */
-    cr_assert_eq("my string", STRINGIZE("my string"), "Stringizing not completed.");
+    cr_expect_str_eq("my string", STRINGIZE(my string), "Stringizing not completed.");
 }
 
 #define ALWAYS_FALSE false
@@ -127,7 +127,7 @@ Test(about_preprocessor, macro_concatination)
         To complete this test, assert that THIS_IS(TRUE)!
         Be wary of your usage of capital letters.
     */
-    cr_assert(THIS_IS(FALSE), "Concatenation not completed.");
+    cr_assert(THIS_IS(TRUE), "Concatenation not completed.");
 }
 
 #define VARIADIC_ARGUMENTS(...) #__VA_ARGS__
@@ -149,6 +149,6 @@ Test(about_preprocessor, variadic_macros)
         Note that the macro takes advantage of stringizing. Your argument is not
         going to be a string.
     */
-    cr_assert_eq("varable,args,with,commas", VARIADIC_ARGUMENTS(TODO),
+    cr_expect_str_eq("varable,args,with,commas", VARIADIC_ARGUMENTS(varable, args, with, commas),
         "Variadic macros not yet completed");
 }
