@@ -19,13 +19,11 @@ Test(about_strings, what_is_string)
     */
 
     /* Change this to: 'cr_assert_not_null' */
-    cr_assert_null(
-        string, "string contains value which is the address of first\
+    cr_assert_null(string, "string contains value which is the address of first\
      character");
 
     /* Change it to 'C' */
-    cr_assert_eq(
-        'c', *string, "Dereferencing will give the first character of \
+    cr_assert_eq('c', *string, "Dereferencing will give the first character of \
         the string");
 
     cr_assert_eq('s', *(string + 1), "Dereferencing with offset will give \
@@ -116,8 +114,7 @@ Test(about_strings, copy)
 
     string1[4] = '2'; /* string1 = CSE 201 */
 
-    cr_assert_str_eq(
-        "CSE 101", string2, "Only copied pointer, did not copy the\
+    cr_assert_str_eq("CSE 101", string2, "Only copied pointer, did not copy the\
      string");
 
     /* Correct way to copy string */
@@ -125,14 +122,16 @@ Test(about_strings, copy)
     strcpy(string3, string1); /* copy all characters */
 
     /* Replace with cr_assert_str_eq */
-    cr_assert_eq("CSE 101", string2, "Only copied pointer, did not copy the \
+    cr_assert_str_eq(
+        "CSE 101", string2, "Only copied pointer, did not copy the \
         string");
 }
 
 void test_a_string_length_with_sizeof(char *string)
 {
     /* Sizeof(string) is 8 because the size of pointer is 8 */
-    cr_assert_eq(TODO, sizeof(string), "That same string gives a different size \
+    cr_assert_eq(
+        TODO, sizeof(string), "That same string gives a different size \
         when passed into this function, always use strlen function");
 }
 

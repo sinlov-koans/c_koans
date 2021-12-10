@@ -14,7 +14,7 @@ Test(about_basics, intro)
         Tests are built on assertions, simple evaluations of truth in order to
         assess the correctness of code
     */
-    cr_assert(false,
+    cr_assert(true,
         "This should be true, assertion - a confident and forceful "
         "statement of fact");
     /*
@@ -26,18 +26,18 @@ Test(about_basics, intro)
         interpret
         the input as an int
     */
-    cr_assert(false == 1,
+    cr_assert(false == 0,
         "In C there is no false, there is only zero. false is in fact: %d",
         false);
-    cr_assert(true == 0,
+    cr_assert(true == 1,
         "In C there is no true, there is only not zero. true is in fact: %d",
         true);
     /*
         Criterion has more descriptive tests that can evaluate the same thing
         eq is short for equals
     */
-    cr_assert_eq(false, 1, "Nothing is not something");
-    cr_assert_eq(true, 0, "Something is not nothing");
+    cr_assert_eq(false, 0, "Nothing is not something");
+    cr_assert_eq(true, 1, "Something is not nothing");
 }
 
 Test(about_basics, variables)
@@ -46,33 +46,34 @@ Test(about_basics, variables)
         If you've had some experience with Java then C won't seem too foreign in
         terms of syntax
     */
-    char c = TODO;
+    char c = 67;
     cr_assert_eq(c, 'C',
         "All characters in C are interpreted from the ASCII "
         "table, go to your terminal and enter 'man ascii' to "
         "find this solution");
 
-    short s = TODO;
+    short s = 3054;
     cr_assert_eq(s, 0xBEE, "A short is 2 bytes");
 
-    int i = TODO;
+    int i = 195935983;
     cr_assert_eq(i, 0xBADBEEF, "A int is 4 bytes");
 
-    long long l = TODO;
+    long long l = 59788208926;
     cr_assert_eq(l, 0xDEBA7AB1E,
         "A long is a larger integer type than int (supports unsigned).");
 
-    unsigned int ui = TODO;
+    unsigned int ui = UINT_MAX;
     /*
         This unsigned int should exceed the maximum capacity of an INT (hint
         UINT_MAX is declared in limits.h)
     */
+//    printf("UINT_MAX %d target %d\n", UINT_MAX, 0xDEADBEEF);
     cr_assert_gt(ui, 0xDEADBEEF,
         "The unsigned modifier can be used on a "
         "primitive data type to increase the upper "
         "limit by only storing positive values");
 
-    long long ll = TODO;
+    long long ll = 255;
 
     cr_assert_eq(ll, 0xFF,
         "A number literal starting with 0x will be interpreted as hexadecimal");
@@ -81,11 +82,12 @@ Test(about_basics, variables)
     cr_assert_eq(ll, 0377,
         "A number literal starting with 0 will be interpreted as octal");
 
-    double d = TODO;
+    double d = 3.0;
+//    printf("7 / 2 %d", (7 / 2));
     cr_assert_float_eq(d, (7 / 2), 0.000001,
         "Just like Java, C does integer division for 7/2");
 
-    double d2 = TODO;
+    double d2 = 3.0;
     cr_assert_float_eq(d2, 3 + (1 / 2), 0.000001,
         "Addition also effects whether a number literal is "
         "interpreted as IEEE or 2's Comp");
