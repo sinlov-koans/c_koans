@@ -4,7 +4,8 @@ BINDIR := bin
 BLDDIR := build
 INCDIR := include
 
-ALL_SRCF := $(shell find $(SRCDIR) -type f -name *.c)
+#ALL_SRCF := $(shell find $(SRCDIR) -type f -name *.c)
+ALL_SRCF := $(shell find src  -type f -regex '.*.c' | grep -E '(_helpers|about_arrays)')
 ALL_OBJF := $(patsubst $(SRCDIR)/%,$(BLDDIR)/%,$(ALL_SRCF:.c=.o))
 #MAINF := # use nm to find file with main and include it
 #FUNCF := $(filter-out $(MAIN_FILES), $(ALL_OBJF))
