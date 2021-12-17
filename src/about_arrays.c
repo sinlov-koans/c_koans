@@ -3,7 +3,7 @@
 
 void func(int *array)
 {
-//    printf("sizeof(array) %lu\n", sizeof(array));
+    //    printf("sizeof(array) %lu\n", sizeof(array));
     cr_assert_eq(sizeof(array), 8,
         "That same array gives a different size "
         "when passed into this function");
@@ -70,8 +70,8 @@ Test(about_arrays, what_is_an_array)
         array elegantly.
     */
     int another_array[5] = { 1, 2, 3, 4, 5 };
-    cr_assert_eq(another_array[3], TODO,
-        "We should be seeing the some element's value.");
+    cr_assert_eq(
+        another_array[3], 4, "We should be seeing the some element's value.");
 
     /*
         You will not always know how many items an array might hold at runtime.
@@ -106,13 +106,14 @@ Test(about_arrays, what_is_an_array)
             where = i;
         }
 
-        cr_assert_eq(yet_another_array[i], TODO,
+        cr_assert_eq(yet_another_array[i], i + 1,
             "Although we started with an "
             "array of 5 elements, we "
             "should be able to find a "
-            "sixth element as well.");
+            "sixth element as well. %d",
+            yet_another_array[i]);
     }
-    cr_assert_eq(where, TODO,
+    cr_assert_eq(where, INIT_ARR_SIZE,
         "We should be seeing a certain value, given the "
         "way we set these elements' values.");
 
@@ -125,9 +126,9 @@ Test(about_arrays, what_is_an_array)
     const char a_string[13] = "hello world!"; /* This is a 'string' in C. */
 
     /* In C, a string is simply an array of characters. */
-    cr_assert_eq(a_string[3], TODO,
+    cr_assert_eq(a_string[3], 0x6c,
         "We may be interested in a particular "
-        "character of strings.");
+        "character of strings. %d", a_string[3]);
 
     /*
         In C, memory is just memory. It is just a bunch of bytes. Therefore, we
@@ -136,5 +137,5 @@ Test(about_arrays, what_is_an_array)
         do this. This byte is always found at the end of a string, and if it is
         missing, can lead to very dangerous and unpredictable bugs.
     */
-    cr_assert_eq(a_string[12], TODO_NZ, "Null terminators are essential!");
+    cr_assert_eq(a_string[12], 0x00, "Null terminators are essential! %d", a_string[12]);
 }
