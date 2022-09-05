@@ -19,6 +19,19 @@ CFLAGS := -std=$(STD) -Wall -Werror -Wno-unused-function -Wno-nonnull
 
 CRITERION := -lcriterion
 
+OS_RLEASE ?= $(shell uname)
+OS_BIT ?= $(shell uname -m)
+ifeq ($(OS_RLEASE),Darwin)
+	ifeq ($(OS_BIT),arm64)
+		INC := -I $(INCDIR) -I/opt/homebrew/include
+		CRITERION := -lcriterion -L/opt/homebrew/lib
+	endif
+endif
+
+env:
+	@echo "INC = ${INC}"
+	@echo "CRITERION = ${CRITERION}"
+
 .PHONY: setup all clean
 
 all: setup $(EXEC)
