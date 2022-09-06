@@ -27,8 +27,8 @@ ifeq ($(shell echo `pkg-config --exists criterion`$$?), 0)
 endif
 
 # os info
-OS_UNAME ?= $(shell uname) # Linux Darwin
-OS_BIT ?= $(shell uname -m) # x86_64 arm64
+OS_UNAME ?= $(shell echo `uname`) # Linux Darwin
+OS_BIT ?= $(shell echo `uname -m`) # x86_64 arm64
 
 # add link at Apple Silicon
 ifeq ($(OS_UNAME),Darwin)
