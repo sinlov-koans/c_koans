@@ -19,6 +19,11 @@ CFLAGS := -std=$(STD) -Wall -Werror -Wno-unused-function -Wno-nonnull
 
 CRITERION := -lcriterion
 
+ifeq ($(shell pkg-config --exists criterion),)
+    INC := $(shell pkg-config --cflags-only-I criterion) -I $(INCDIR)
+    CRITERION := $(shell pkg-config --libs criterion)
+endif
+
 OS_RLEASE ?= $(shell uname)
 OS_BIT ?= $(shell uname -m)
 ifeq ($(OS_RLEASE),Darwin)
