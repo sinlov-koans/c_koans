@@ -1,3 +1,5 @@
+EXEC := c_koans
+
 CC := gcc
 SRCDIR := src
 BINDIR := bin
@@ -10,32 +12,55 @@ ALL_OBJF := $(patsubst $(SRCDIR)/%,$(BLDDIR)/%,$(ALL_SRCF:.c=.o))
 #MAINF := # use nm to find file with main and include it
 #FUNCF := $(filter-out $(MAIN_FILES), $(ALL_OBJF))
 
+INCDIR := include
 INC := -I $(INCDIR)
 
-EXEC := c_koans
-
 STD := gnu11
+
 CFLAGS := -std=$(STD) -Wall -Werror -Wno-unused-function -Wno-nonnull
 
 CRITERION := -lcriterion
-
-ifeq ($(shell pkg-config --exists criterion),)
-    INC := $(shell pkg-config --cflags-only-I criterion) -I $(INCDIR)
+# pkg-config include criterion
+ifeq ($(shell echo `pkg-config --exists criterion`$$?), 0)
+    INC += $(shell pkg-config --cflags-only-I criterion)
     CRITERION := $(shell pkg-config --libs criterion)
 endif
 
-OS_RLEASE ?= $(shell uname)
-OS_BIT ?= $(shell uname -m)
-ifeq ($(OS_RLEASE),Darwin)
+# os info
+OS_UNAME ?= $(shell uname) # Linux Darwin
+OS_BIT ?= $(shell uname -m) # x86_64 arm64
+
+# add link at Apple Silicon
+ifeq ($(OS_UNAME),Darwin)
 	ifeq ($(OS_BIT),arm64)
-		INC := -I $(INCDIR) -I/opt/homebrew/include
-		CRITERION := -lcriterion -L/opt/homebrew/lib
+		INC += -I/opt/homebrew/include
+		CRITERION += -L/opt/homebrew/lib
 	endif
 endif
 
 env:
-	@echo "INC = ${INC}"
-	@echo "CRITERION = ${CRITERION}"
+	@echo "== print env start =="
+	@echo ""
+	@echo "EXEC             ${EXEC}"
+	@echo "CC               ${CC}"
+	@echo "OS_UNAME         ${OS_UNAME}"
+	@echo "OS_BIT           ${OS_BIT}"
+	@echo ""
+	@echo " - source"
+	@echo "SRCDIR           ${SRCDIR}"
+	@echo "BINDIR           ${BINDIR}"
+	@echo "BLDDIR           ${BLDDIR}"
+	@echo "ALL_SRCF         ${ALL_SRCF}"
+	@echo "ALL_OBJF         ${ALL_OBJF}"
+	@echo ""
+	@echo " - include"
+	@echo "INCDIR           ${INCDIR}"
+	@echo "INC              ${INC}"
+	@echo ""
+	@echo " - third"
+	@echo "CRITERION        ${CRITERION}"
+	@echo ""
+	@echo "== print env end =="
 
 .PHONY: setup all clean
 
